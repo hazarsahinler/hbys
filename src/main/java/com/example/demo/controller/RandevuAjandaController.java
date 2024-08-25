@@ -24,7 +24,7 @@ public class RandevuAjandaController {
         this.randevuAjandaDAO = randevuAjandaDAO;
     }
 
-    @RequestMapping("/getRandevuSlot")
+    @RequestMapping("/personel/getRandevuSlot")
     public void getRandevuSlot(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String personelId = request.getParameter("personel_id");
         String bransId = request.getParameter("brans_id");
@@ -42,7 +42,7 @@ public class RandevuAjandaController {
     }
 
 
-    @RequestMapping("/createTakvim")
+    @RequestMapping("/personel/createTakvim")
     public void createTakvim(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String startDate = request.getParameter("start_date");
         String endDate = request.getParameter("end_date");
@@ -57,7 +57,7 @@ public class RandevuAjandaController {
 
     }
 
-    @RequestMapping("/createAjanda")
+    @RequestMapping("/personel/createAjanda")
     public void createAjanda(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String baslangicTarihi = request.getParameter("baslangic_tarihi");
         String bitisTarihi = request.getParameter("bitis_tarihi");
@@ -84,7 +84,7 @@ public class RandevuAjandaController {
         }
 
     }
-    @RequestMapping("/createRandevu")
+    @RequestMapping("/personel/createRandevu")
     public void createRandevu(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String hastaId = request.getParameter("hasta_id");
         String randevuId = request.getParameter("randevu_id");
@@ -98,7 +98,7 @@ public class RandevuAjandaController {
 
     }
 
-    @RequestMapping("/deleteRandevuById")
+    @RequestMapping("/personel/deleteRandevuById")
     public void deleteRandevuById(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String randevuId = request.getParameter("randevuId");
         JSONObject respObj =randevuAjandaService.deleteRandevuById(randevuId);
@@ -110,7 +110,7 @@ public class RandevuAjandaController {
         }
     }
 
-    @RequestMapping("/deleteRandevuByTarih")
+    @RequestMapping("/personel/deleteRandevuByTarih")
     public void deleteRandevuByTarih(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String baslangicTarihi = request.getParameter("baslangic_tarihi");
         String bitisTarihi = request.getParameter("bitis_tarihi");
@@ -124,7 +124,7 @@ public class RandevuAjandaController {
         }
 
     }
-    @RequestMapping("/randevuIptal")
+    @RequestMapping("/personel/randevuIptal")
     public void randevuIptal(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String randevuId = request.getParameter("randevu_id");
         JSONObject respObj= randevuAjandaService.randevuIptal(randevuId);
@@ -135,7 +135,7 @@ public class RandevuAjandaController {
         }
 
     }
-    @RequestMapping("/getAktifRandevular")
+    @RequestMapping("/personel/getAktifRandevular")
     public void getAktifRandevularByHasta(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String hastaId = request.getParameter("hasta_id");
         String baslangic = request.getParameter("baslangic_tarihi");
@@ -150,7 +150,7 @@ public class RandevuAjandaController {
         }
 
     }
-    @RequestMapping("/getDoktorRandevular")
+    @RequestMapping("/personel/getDoktorRandevular")
     public void getAktifRandevularDoktor(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String personelId = request.getParameter("personel_id");
         JSONArray resp= randevuAjandaService.getDoluRandevularByDoktorId(personelId);
@@ -164,7 +164,7 @@ public class RandevuAjandaController {
 
 
     }
-    @RequestMapping("/addRezervToRandevu")
+    @RequestMapping("/personel/addRezervToRandevu")
     public void addRezervToRandevu(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String slotId = request.getParameter("slot_id");
         String rezervNotu = request.getParameter("rezerv_notu");
@@ -175,7 +175,7 @@ public class RandevuAjandaController {
             response.getWriter().write(resp.toString());
         }
     }
-    @RequestMapping("/addHastaToRezerv")
+    @RequestMapping("/personel/addHastaToRezerv")
     public void addHastaToRezerv(HttpServletRequest request,HttpServletResponse response) throws IOException{
         String hastaId = request.getParameter("hasta_id");
         String slotId = request.getParameter("slot_id");

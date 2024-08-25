@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/personel")
+@RequestMapping("/api")
 public class PersonelController {
     private final PersonelService personelService;
     private final Utility utility;
@@ -24,12 +24,12 @@ public class PersonelController {
         this.utility = utility;
     }
 
-    @GetMapping
+    @GetMapping("/personel")
     public JSONArray getAllPersonel() {
         return JSONArray.fromObject(personelService.getAllPersonel());
     }
 
-    @RequestMapping("/search")
+    @RequestMapping("/personel/search")
     public void searchPersonel(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String personelIsim = request.getParameter("personelIsim");
         String personelSoyisim = request.getParameter("personelSoyisim");
@@ -53,7 +53,7 @@ public class PersonelController {
 
     }
 
-    @RequestMapping("/addPersonel")
+    @RequestMapping("/personel/addPersonel")
     public void addPersonel(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String personelIsim = request.getParameter("personelIsim");
         String personelSoyisim = request.getParameter("personelSoyisim");

@@ -14,24 +14,33 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/hasta")
+@RequestMapping("/api")
 public class HastaController {
     private final HastaService hastaService;
-    private final HastaServiceImpl hastaServiceImpl;
 
-    public HastaController(HastaService hastaService, HastaServiceImpl hastaServiceImpl) {
+
+    public HastaController(HastaService hastaService) {
         this.hastaService = hastaService;
-        this.hastaServiceImpl = hastaServiceImpl;
+
     }
 
+    //İstenilen bilgiye göre tabloda arama yapıp hasta listesi geri döndürür
+    @RequestMapping("/hasta/search")
+    public void findByParam(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Parametreleri oku
+        String kimlikNo = request.getParameter("kimlikNo");
+        String isim = request.getParameter("isim");
+        String soyisim = request.getParameter("soyisim");
+        String sigortaTipi = request.getParameter("sigortaTipi");
+        String telefon = request.getParameter("telNo");
+        String email = request.getParameter("mail");
 
-    //tüm hastaları al
-    @GetMapping()
-    public void getAllHasta(HttpServletResponse response) throws IOException {
-        JSONArray respObj = hastaService.getAllHastalar();
+        // HastaService'i kullanarak sonuçları getir
+        JSONArray respObj = hastaService.findByParam(kimlikNo, isim, soyisim,sigortaTipi,telefon, email);
+
+        // Sonucu response'a yaz
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         if (respObj != null && respObj.size() > 0) {
             response.getWriter().write(respObj.toString());
         } else {
@@ -41,7 +50,25 @@ public class HastaController {
         }
     }
 
-    @RequestMapping("/add")
+
+
+//    //tüm hastaları al
+//    @GetMapping("/hasta")
+//    public void getAllHasta(HttpServletResponse response) throws IOException {
+//        JSONArray respObj = hastaService.getAllHastalar();
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//
+//        if (respObj != null && respObj.size() > 0) {
+//            response.getWriter().write(respObj.toString());
+//        } else {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("message", "No record found");
+//            response.getWriter().write(jsonObject.toString());
+//        }
+//    }
+
+    @RequestMapping("/hasta/add")
     public void addHasta(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer firmaId;
         String tcKimlikNo = request.getParameter("tcKimlikNo");
@@ -68,33 +95,6 @@ public class HastaController {
     }
 
 
-    //İstenilen bilgiye göre tabloda arama yapıp hasta listesi geri döndürür
-    @RequestMapping("/search")
-    public void findByParam(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Parametreleri oku
-
-        String kimlikNo = request.getParameter("kimlikNo");
-        String isim = request.getParameter("isim");
-        String soyisim = request.getParameter("soyisim");
-        String sigortaTipi = request.getParameter("sigortaTipi");
-        String telefon = request.getParameter("telNo");
-        String email = request.getParameter("mail");
-
-        // HastaService'i kullanarak sonuçları getir
-        JSONArray respObj = hastaService.findByParam(kimlikNo, isim, soyisim,sigortaTipi,telefon, email);
-
-        // Sonucu response'a yaz
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        if (respObj != null && respObj.size() > 0) {
-            response.getWriter().write(respObj.toString());
-        } else {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("message", "No record found");
-            response.getWriter().write(jsonObject.toString());
-        }
-    }
 
     private Date parseDate(String dateStr) {
         try {

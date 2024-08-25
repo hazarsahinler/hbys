@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/branslar")
+@RequestMapping("/api")
 public class BransController {
     private final BransService bransService;
     public BransController(BransService bransService) {
@@ -24,8 +24,8 @@ public class BransController {
      * @param response
      * @throws IOException
      */
-    @GetMapping
-    public void getAllHasta(HttpServletResponse response) throws IOException {
+    @GetMapping("/branslar")
+    public void getAllBranslar(HttpServletResponse response) throws IOException {
         JSONArray respObj = bransService.getAllBrans();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -47,7 +47,7 @@ public class BransController {
      * @throws IOException
      */
 
-    @RequestMapping("/search")
+    @RequestMapping("/branslar/search")
     public void searchBrans(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws IOException {
 
         String bransIsmi = httpServletRequest.getParameter("bransIsmi");
@@ -82,7 +82,7 @@ public class BransController {
 
 
     }
-    @RequestMapping("/delete")
+    @RequestMapping("/branslar/delete")
     public void deleteBrans(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws IOException {
         String bransIsmi = httpServletRequest.getParameter("bransIsmi");
         String bransKodu = httpServletRequest.getParameter("bransKodu");
@@ -106,7 +106,7 @@ public class BransController {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(jsonObject.toString());
     }
-    @RequestMapping("/insert")
+    @RequestMapping("/branslar/insert")
     public void insertBrans(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws Exception {
         String bransIsmi = httpServletRequest.getParameter("bransIsmi");
         String bransKodu = httpServletRequest.getParameter("bransKodu");

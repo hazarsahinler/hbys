@@ -73,8 +73,8 @@ public class VizitServiceImpl implements VizitService {
             return jsonObject;
         } else {
             hasta = hastaList.get(0);
-        }
 
+        }
 
         Boolean bool = hastaVizitDao.getCount(bransId, hasta.getHastaId(), hastaVizitGiris, true);
         if (bool == true) {

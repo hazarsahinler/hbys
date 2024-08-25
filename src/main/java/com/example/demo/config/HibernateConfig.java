@@ -53,4 +53,3 @@ public class HibernateConfig {
         return sessionFactoryBean;
     }
 }
-

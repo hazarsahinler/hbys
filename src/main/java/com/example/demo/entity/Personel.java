@@ -33,7 +33,6 @@ public class Personel {
     @Column(name = "dogum_tarihi")
     private Date dogumTarihi;
 
-
     @ManyToOne
     @JoinColumn(name = "branş_id")
     private Brans brans;

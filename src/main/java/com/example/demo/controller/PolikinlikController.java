@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/polikinlikler")
+@RequestMapping("/api")
 public class PolikinlikController {
     private final PolikinlikService polikinlikService;
 
@@ -21,7 +21,7 @@ public class PolikinlikController {
         this.polikinlikService = polikinlikService;
     }
 
-    @RequestMapping("/getPolikinliklerByParam")
+    @RequestMapping("/polikinlikler/getPolikinliklerByParam")
     public void polikinlikler(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         String bransIsmi = httpServletRequest.getParameter("bransIsmi");
         String bransKodu = httpServletRequest.getParameter("bransKodu");
@@ -41,7 +41,7 @@ public class PolikinlikController {
 
     }
 
-    @RequestMapping("/addPolikinlik")
+    @RequestMapping("/polikinlikler/addPolikinlik")
     public void addPolikinlik(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         String polikinlikIsim=httpServletRequest.getParameter("polikinlikIsim");
         String bransId=httpServletRequest.getParameter("bransId");

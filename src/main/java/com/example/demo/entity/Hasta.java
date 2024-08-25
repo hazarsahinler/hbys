@@ -25,11 +25,9 @@ public class Hasta {
     @Column(name = "hasta_soyisim")
     private String hastaSoyisim;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "firma_id", nullable = true)
     private SigortaFirmalar sigortaFirmalar;
-
 
     @Enumerated(EnumType.STRING)
     private SigortaTipi sigortaTipi;

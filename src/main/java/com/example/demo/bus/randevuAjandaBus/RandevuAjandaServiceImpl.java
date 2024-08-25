@@ -131,7 +131,7 @@ public class RandevuAjandaServiceImpl implements RandevuAjandaService {
             int fark = (int) ChronoUnit.YEARS.between(ilk, currentDate);
             //yili fark kadar ileri al
             LocalDate ramazanBasi = utility.getRamazanTarihi(fark);
-            LocalDate kurbanBasi = utility.getRamazanTarihi(fark);
+            LocalDate kurbanBasi = utility.getKurbanTarihi(fark);
 
 
             //ay ve gün eşitse veya baslangic ve bitis arasindaki günlerse SET(T)
@@ -544,16 +544,16 @@ public class RandevuAjandaServiceImpl implements RandevuAjandaService {
 
     @Override
     @Transactional
-    public JSONObject addHastaToRezervSlot(String hastaId,String slotId) {
+    public JSONObject addHastaToRezervSlot(String hastaId, String slotId) {
         Hasta hasta = hastaDAO.getObjectById(Hasta.class, utility.convertInteger(hastaId, 0));
         RandevuAjanda randevuSlot = randevuAjandaDAO.getObjectById(RandevuAjanda.class, utility.convertInteger(slotId, 0));
         randevuSlot.setHasta(hasta);
         randevuSlot.setRandevuDurum(RandevuDurum.Dolu);
         randevuAjandaDAO.saveOrUpdate(randevuSlot);
-        loggingService.logRandevuDegisiklik(randevuSlot.getHasta(),"UPDATE","Rezervlenen randevu onaylandi.",randevuSlot.getPersonel(),randevuSlot,randevuSlot.getBaslangicSaati(),randevuSlot.getBitisSaati());
+        loggingService.logRandevuDegisiklik(randevuSlot.getHasta(), "UPDATE", "Rezervlenen randevu onaylandi.", randevuSlot.getPersonel(), randevuSlot, randevuSlot.getBaslangicSaati(), randevuSlot.getBitisSaati());
         JSONObject respObj = new JSONObject();
         respObj.put("success", true);
-        respObj.put("message","REZERVE OLAN SLOTA HASTA BASARIYLA ATANDI");
+        respObj.put("message", "REZERVE OLAN SLOTA HASTA BASARIYLA ATANDI");
         return respObj;
     }
 
@@ -563,8 +563,8 @@ public class RandevuAjandaServiceImpl implements RandevuAjandaService {
     public void rezervTakip() {
         List<RandevuAjanda> rezervRandevular = randevuAjandaDAO.getRezervRandevular();
         for (RandevuAjanda rezerv : rezervRandevular) {
-            if(rezerv.getHastaVizit()==null && LocalDateTime.now().plusHours(24).isAfter(rezerv.getBaslangicSaati())){
-                loggingService.logRandevuDegisiklik(null,"UPDATE","Rezervlenen randevu, randevu alinabilir hale geldi",rezerv.getPersonel(),rezerv,rezerv.getBaslangicSaati(),rezerv.getBitisSaati());
+            if (rezerv.getHastaVizit() == null && LocalDateTime.now().plusHours(24).isAfter(rezerv.getBaslangicSaati())) {
+                loggingService.logRandevuDegisiklik(null, "UPDATE", "Rezervlenen randevu, randevu alinabilir hale geldi", rezerv.getPersonel(), rezerv, rezerv.getBaslangicSaati(), rezerv.getBitisSaati());
                 rezerv.setRandevuDurum(RandevuDurum.Bos);
                 rezerv.setDoktorRezervNot(null);
                 randevuAjandaDAO.saveOrUpdate(rezerv);

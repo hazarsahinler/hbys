@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/hizmet")
+@RequestMapping("/api")
 public class HastaHizmetlerController {
     private final HastaHizmetlerService hastaHizmetlerService;
     private final HizmetDAO hizmetDAO;
@@ -27,7 +27,7 @@ public class HastaHizmetlerController {
         this.hizmetDAO = hizmetDAO;
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/hizmet/add")
     public void addHizmet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer hastaVizitId = Integer.parseInt(request.getParameter("hastaVizitId"));
         Integer hizmetId = Integer.parseInt(request.getParameter("hizmetId"));
@@ -42,14 +42,14 @@ public class HastaHizmetlerController {
             response.getWriter().write(jsonObject.toString());
         }
     }
-    @RequestMapping("/delete")
+    @RequestMapping("/hizmet/delete")
     public void deleteHizmet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer hastaHizmetId = Integer.parseInt(request.getParameter("hastaHizmetId"));
         JSONObject jsonObject = hastaHizmetlerService.deleteHizmet(hastaHizmetId);
         response.setContentType("application/json");
         response.getWriter().write(jsonObject.toString());
     }
-    @RequestMapping("/getHizmetlerByVizitId")
+    @RequestMapping("/hizmet/getHizmetlerByVizitId")
     public void getHizmetlerByVizitId(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer vizitId = Integer.parseInt(request.getParameter("vizitId"));
         JSONArray jsonArray = hastaHizmetlerService.getHizmetlerByVizitId(vizitId);

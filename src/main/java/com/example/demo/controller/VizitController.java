@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/vizit")
+@RequestMapping("/api")
 public class VizitController {
 
     private final VizitService vizitService;
@@ -27,18 +27,7 @@ public class VizitController {
         this.utils = utils;
     }
 
-    @RequestMapping("/deleteVizit")
-    public void deleteVizit(HttpServletResponse response, HttpServletRequest request) throws IOException {
-        Integer id = Integer.parseInt(request.getParameter("hastaVizitId"));
-        JSONObject jsonObject = vizitService.deleteVizit(id);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        if (jsonObject != null) {
-            response.getWriter().write(jsonObject.toString());
-        }
-    }
-
-    @RequestMapping("/addVizit")
+    @RequestMapping("/vizit/addVizit")
     public void addVizit(HttpServletResponse response, HttpServletRequest httpServletRequest) throws IOException {
         String tcKimlikNo = httpServletRequest.getParameter("tcKimlikNo");
         Integer bransId = Integer.valueOf(httpServletRequest.getParameter("bransId"));
@@ -58,7 +47,18 @@ public class VizitController {
         }
     }
 
-    @RequestMapping("/getVizitlerByParams")
+    @RequestMapping("/vizit/deleteVizit")
+    public void deleteVizit(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        Integer id = Integer.parseInt(request.getParameter("hastaVizitId"));
+        JSONObject jsonObject = vizitService.deleteVizit(id);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        if (jsonObject != null) {
+            response.getWriter().write(jsonObject.toString());
+        }
+    }
+
+    @RequestMapping("/vizit/getVizitlerByParams")
     public void getVizitlerByParams(HttpServletResponse response, HttpServletRequest httpServletRequest) throws IOException {
         Integer bransId=null;
         Integer poliklinikId=null;

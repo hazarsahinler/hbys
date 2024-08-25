@@ -16,7 +16,7 @@ import java.util.Date;
 import static org.apache.commons.lang3.time.DateUtils.parseDate;
 
 @RestController
-@RequestMapping("/api/vizitTani")
+@RequestMapping("/api")
 public class VizitTaniController {
     private final VizitTaniService vizitTaniService;
 
@@ -33,7 +33,7 @@ public class VizitTaniController {
 
     }
 
-    @RequestMapping("/addTani")
+    @RequestMapping("/vizitTani/addTani")
     public void addTani(HttpServletResponse response, HttpServletRequest httpServletRequest) throws IOException {
 
         Integer hastaVizitId = Integer.valueOf(httpServletRequest.getParameter("hastaVizitId"));

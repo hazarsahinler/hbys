@@ -21,22 +21,6 @@ public class HastaDAO extends BaseDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public JSONArray getAllHastalar() {
-        StringBuilder hql = new StringBuilder();
-        hql.append(" Select new map(");
-        hql.append("a.hastaIsim || ' ' || a.hastaSoyisim as hastaAdi, ");
-        hql.append("a.tcKimlikNo as tcNo, ");
-        hql.append("a.sigortaFirmalar as sigortaFirmasi, ");
-        hql.append("a.sigortaTipi as sigortaTipi, ");
-        hql.append("to_char(a.dogumTarihi, 'dd/mm/yyyy') as dogumTarihi)");
-        hql.append(" from Hasta a ");
-
-        Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
-        JSONArray jsonArray = JSONArray.fromObject(query.list());
-        return jsonArray;
-    }
-
-
     public JSONArray getByParam(String tcKimlikNo, String hastaIsim, String hastaSoyisim, String sigortaTipi, String telNo, String mail) {
         StringBuilder hql = new StringBuilder();
         hql.append("SELECT new map (h.tcKimlikNo as tcKimlikNo, ");
@@ -103,6 +87,22 @@ public class HastaDAO extends BaseDAO {
         if (mail != null && !mail.isEmpty()) {
             query.setParameter("mail", "%" + mail.toLowerCase() + "%");
         }
+        JSONArray jsonArray = JSONArray.fromObject(query.list());
+        return jsonArray;
+    }
+
+
+    public JSONArray getAllHastalar() {
+        StringBuilder hql = new StringBuilder();
+        hql.append(" Select new map(");
+        hql.append("a.hastaIsim || ' ' || a.hastaSoyisim as hastaAdi, ");
+        hql.append("a.tcKimlikNo as tcNo, ");
+        hql.append("a.sigortaFirmalar as sigortaFirmasi, ");
+        hql.append("a.sigortaTipi as sigortaTipi, ");
+        hql.append("to_char(a.dogumTarihi, 'dd/mm/yyyy') as dogumTarihi)");
+        hql.append(" from Hasta a ");
+
+        Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
         JSONArray jsonArray = JSONArray.fromObject(query.list());
         return jsonArray;
     }

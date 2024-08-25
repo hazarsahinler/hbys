@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/tani")
+@RequestMapping("/api")
 public class TaniController {
     private final TaniService taniService;
 
@@ -20,7 +20,7 @@ public class TaniController {
     }
 
 
-    @RequestMapping("/deleteTani")
+    @RequestMapping("/tani/deleteTani")
     public void deleteTani(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
         String taniKod = httpServletRequest.getParameter("taniKod");
@@ -31,7 +31,7 @@ public class TaniController {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(jsonObject.toString());
     }
-    @RequestMapping("/addTani")
+    @RequestMapping("/tani/addTani")
     public void addTani(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         String taniKod = httpServletRequest.getParameter("taniKod");
         String taniAd = httpServletRequest.getParameter("taniAd");
@@ -55,7 +55,7 @@ public class TaniController {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(jsonObject.toString());
     }
-    @RequestMapping("/getByParam")
+    @RequestMapping("/tani/getByParam")
     public void getByParam(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         String taniKod = httpServletRequest.getParameter("taniKod");
         String taniAd = httpServletRequest.getParameter("taniAd");
